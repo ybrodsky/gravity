@@ -1,0 +1,55 @@
+<!doctype html>
+  <head>
+    <title>Universe Sandbox</title>
+    <link rel="icon" href="img/favicon.png" type="image/x-icon" />
+    <script src="http://underscorejs.org/underscore-min.js" type="text/javascript"></script>
+    <script src="src/universe.js" type="text/javascript"></script>
+    <script src="src/vector.js" type="text/javascript"></script>
+    <script src="src/gravity.js" type="text/javascript"></script>
+    <script src="src/celestial.js" type="text/javascript"></script>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      #helpText {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+        font-family: 'Arial';
+        font-size: 11pt;
+      }
+    </style>
+  </head>
+  <body>
+  <canvas id="myCanvas" width="500" height="650" style="border:2px solid #d3d3d3; background-color: #333"></canvas>
+  <div id="helpText">
+    Mass: x<span id="massIndex"></span>
+    <hr/>
+    Click to create a body <br/>
+    Click and drag to add Speed <br/>
+    Mouse wheel to increase Mass <br/>
+  </div>
+  <script>
+
+    var canvas = document.getElementById("myCanvas");
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      if(universe) {
+        universe.drawAll();
+      }
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    var universe = new Universe(new Gravity(), canvas);
+    universe.start();
+
+  </script>
+  </body>
+</html>
