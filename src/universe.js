@@ -156,21 +156,22 @@ Universe.prototype.start = function() {
   var me = this;
   var calculateInterval = setInterval(function() {
     me.objects.forEach(function(object, index) {
-      var forces = [];
+      object.forces = [];
       me.objects.forEach(function(object2, index2) {
-
         if(index == index2) return false;
-
+        
         var d = object.distanceTo(object2.x, object2.y);
-
         var a = me.Gravity.calculateAcceleration(object2.mass, d);
-
-        var direction = object.directionTo(object2.x, object2.y);
-        forces.push(new Vector(a * direction.x, a * direction.y));
+        var direction = object.directionTo(object2.x, object2.y);        
+        object.forces.push( new Vector(a * direction.x, a * direction.y) );
       });
 
-      object.resolveForces(forces);
+     
     });
+     me.objects.forEach(function(object) {
+      object.resolveForces(object.forces);
+     });
+    
   }, 200);
 
   var moveInterval = setInterval(function() {
